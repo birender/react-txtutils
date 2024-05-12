@@ -14,6 +14,10 @@ function App() {
       message :message,
       type:type
     });
+
+    setTimeout(() => {
+      seteAlerts(null)
+    }, 1500);
   }
 
   const toggleMode=()=>{
