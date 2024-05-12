@@ -3,10 +3,12 @@ export default function TextForm(props) {
 
     const handleUpClick = () => {
         setTextName(text.toUpperCase()); 
+        props.showAlert("Convert Into uppercase","success");
     }
     
     const handleLowerClick = () => {
         setTextName(text.toLocaleLowerCase());
+        props.showAlert("Convert Into lowercase","success");
     } 
     
     const handleEmailClick = () => {
