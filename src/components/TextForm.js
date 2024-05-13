@@ -33,14 +33,14 @@ export default function TextForm(props) {
             <div className="mb-3">
                 <textarea onChange={handleOnChange} value={text} className="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
             </div>
-            <button onClick={handleUpClick} className="btn btn-primary mx-2">Convert to Uppercase</button>
-            <button onClick={handleLowerClick} className="btn btn-primary mx-2">Convert to Lowercase</button>
-            <button onClick={handleEmailClick} className="btn btn-primary mx-2">Email Extractor</button>
-            <button onClick={handleClearClick} className="btn btn-primary mx-2">Clear</button>
+            <button onClick={handleUpClick} className="btn btn-primary mx-2 my-2">Convert to Uppercase</button>
+            <button onClick={handleLowerClick} className="btn btn-primary mx-2 my-2">Convert to Lowercase</button>
+            <button onClick={handleEmailClick} className="btn btn-primary mx-2 my-2">Email Extractor</button>
+            <button onClick={handleClearClick} className="btn btn-primary mx-2 my-2">Clear</button>
         </div>    
         <div className="container mt-3">
             <h2>Your Text Summary</h2>
-            <p>{text.split(" ").length} Words, {text.length} Characters</p> 
+            <p>{text.split(" ").filter((element)=>{ return element.length!==0}).length} Words, {text.length} Characters</p> 
             <h2>Email Extractor</h2>
             <p>{extract}</p>
             <h2>Preview</h2>
