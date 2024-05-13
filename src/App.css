@@ -37,3 +37,7 @@
   }
 }
 .blank{color:rgb(37, 52, 217)}
+.active{
+  color:grey;
+  font-weight: bolder;
+}
