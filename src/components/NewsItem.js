@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class NewsItem extends Component {
    
     render() {
-        let {title,description,urlImage} = this.props;
+        let {title,description,urlImage,readMeURL} = this.props;
         const divStyle = {
             width: '18rem'
           };
@@ -15,7 +15,7 @@ export class NewsItem extends Component {
                         <div className="card-body">
                             <h5 className="card-title">{title}</h5>
                             <p className="card-text">{description}</p>
-                            <a href="/newdetail" className="btn btn-dark btm-sm">Read More ...</a>
+                            <a href={`${readMeURL}`} className="btn btn-dark btm-sm">Read More ...</a>
                         </div>
                 </div>
             </div>
