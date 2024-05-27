@@ -15,16 +15,23 @@ export class News extends Component {
         pageSize: PropTypes.number,
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             articles: [],
             loading: false,
             page: 1,
             totalresult : 0,
             pagenation : 0,
-
         };
+        document.title = this.capitalized(this.props.category)+ ":0 News Monkey App";
+    }
+
+    capitalized = (sentence)=>{
+        if (!sentence) return ''; // Check for empty string
+        return sentence.split(' ').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
     }
 
     async fetchNewsAPI() {
@@ -88,9 +95,11 @@ export class News extends Component {
                         let description = element.description == null ? element.title : element.description;
                         let imageURL = element.urlToImage == null ? '' : element.urlToImage;
                         let readMeURL = element.url;
+                        let author = element.author == null?'Unknown':element.author;
+                        let date = element.publishedAt;
                         return (
-                            <div className="col-md-4 yes" key={element.url}>
-                                <NewsItem title={title} description={description} urlImage={imageURL} readMeURL={readMeURL}/>
+                            <div className="col-md-4" key={element.url}>
+                                <NewsItem title={title} description={description} urlImage={imageURL} readMeURL={readMeURL} author={author} publishAt={date}/>
                             </div>
                         );
                     })}
