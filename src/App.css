@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+    width: 100%;    
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Ensure items wrap to the next line */
+}
+
+.col-md-4 {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.header-bg {
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
