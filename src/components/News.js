@@ -43,15 +43,19 @@ export class News extends Component {
     }
 
     async fetchNewsAPI() {  
+        this.props.setProgress(10);
         this.setState({ loading: true });
         let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=${this.props.apikey}&page=${this.state.page}&pagesize=${this.props.pageSize}`;
         let data = await fetch(url);
+        this.props.setProgress(30);
         let parseData = await data.json(); 
-        if( parseData.status == "error") {            
+        this.props.setProgress(70);
+        if( parseData.status === "error") {            
             this.setState({ articles: [], loading: false, totalResults: 0, pagenation: 0,message : parseData.message,error: 201,errorCode:parseData.code });
         }else{
             this.setState({ articles: parseData.articles, loading: false, totalResults: parseData.totalResults, pagenation: Math.ceil(this.state.totalResults / this.state.articles.length),error:200 });
-        }        
+        }
+        this.props.setProgress(100);        
     }
 
     componentDidMount() {
@@ -91,10 +95,13 @@ export class News extends Component {
     }
 
     fetchMore = async () => { 
+        this.props.setProgress(10);
         let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=${this.props.apikey}&page=${this.state.page + 1}&pagesize=${this.props.pageSize}`;
         let data = await fetch(url);
+        this.props.setProgress(30);
         let parseData = await data.json();
-        if( parseData.status == "error") {                        
+        this.props.setProgress(70);
+        if( parseData.status === "error") {                        
             this.setState({ message : parseData.message,error: 201,errorCode:parseData.code,articles: [], loading: false, totalResults: 0, pagenation: 0 });
         }else{    
             this.setState({
@@ -105,16 +112,19 @@ export class News extends Component {
                 pagenation: Math.ceil(this.state.totalResults / this.state.articles.length)
             });
         }
+        this.props.setProgress(100);
     }
 
     render() {
         return (
             <>
-                <h2>{this.capitalized(this.props.category)} Top headlines</h2>
-                { this.state.error == 200 &&  <InfiniteScroll
+                <h2>{this.capitalized(this.props.category)} Top headlines</h2> 
+                { this.state.error === 200 &&  <InfiniteScroll
                     dataLength={this.state.articles.length}
                     hasMore={this.state.articles.length !== this.state.totalResults}
                     loader={<Spinner />}
+                    className="news-infinite-scroll"
+                    style={{ overflow: 'hidden' }}
                     next={this.fetchMore}
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
@@ -140,7 +150,8 @@ export class News extends Component {
                     </div>
                     </InfiniteScroll>
                 }
-                { this.state.error == 201 && <div className="container my-3">
+                
+                { this.state.error === 201 && <div className="container my-3">
                         <div className="row">
                         <div className="col-md-12">
                             <strong>Error Code :</strong> { this.state.errorCode } - { this.state.message }
